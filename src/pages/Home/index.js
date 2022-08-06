@@ -1,5 +1,5 @@
 import {
-  Container, Header, ListContainer, Card,
+  Container, InputSearchContainer, Header, ListContainer, Card,
 } from './styles';
 
 import arrow from '../../assets/images/icons/arrow.svg';
@@ -9,6 +9,10 @@ import trash from '../../assets/images/icons/trash.svg';
 export default function Home() {
   return (
     <Container>
+      <InputSearchContainer>
+        <input type="text" placeholder="Pesquise pelo nome..." />
+      </InputSearchContainer>
+
       <Header>
         <strong>3 contatos</strong>
         <a href="/">Novo contato</a>
