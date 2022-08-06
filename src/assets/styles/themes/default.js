@@ -12,6 +12,7 @@ export default {
       900: '#222',
       200: '#BCBCBC',
     },
+    disabled: '#ccc',
   },
 
 };
