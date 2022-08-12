@@ -13,6 +13,7 @@ export default styled.input`
   font-size: 16px;
   border: 2px solid transparent;
   transition: border-color 0.2s ease-in;
+  appearance: none; // Evita o css dos dispositivos mobile (e também desktop) pegar os estilos padrões.
 
   &:focus {
     border-color: ${({ theme }) => theme.colors.primary.main};
