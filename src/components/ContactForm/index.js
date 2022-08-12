@@ -52,7 +52,8 @@ export default function ContactForm({ buttonLabel }) {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    // noValidate fará com que o Browser não faça uma validação dos dados dos inputs
+    <form onSubmit={handleSubmit} noValidate>
       <FormGroup error={getErrorMessageByFieldName('name')}>
         <Input
           error={getErrorMessageByFieldName('name')}
@@ -64,6 +65,7 @@ export default function ContactForm({ buttonLabel }) {
 
       <FormGroup error={getErrorMessageByFieldName('email')}>
         <Input
+          type="email" // nos dispositivos mobile, o campo email irá apresentar no teclado os botões @ e .com
           error={getErrorMessageByFieldName('email')}
           placeholder="E-mail"
           value={email}
