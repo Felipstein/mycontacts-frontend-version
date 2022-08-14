@@ -57,7 +57,10 @@ export default function Home() {
       </Header>
 
       <ListHeader>
-        <button type="button" onClick={handleToggleOrderBy}>
+        <button
+          type="button"
+          onClick={handleToggleOrderBy}
+        >
           <span>Nome</span>
           <img src={arrow} alt="Arrow" />
         </button>
