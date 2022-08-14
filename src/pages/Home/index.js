@@ -16,7 +16,7 @@ export default function Home() {
   const [order, setOrder] = useState('asc');
 
   useEffect(() => {
-    fetch('http://localhost:3001/contacts')
+    fetch(`http://localhost:3001/contacts?orderBy=${orderBy}`)
       .then(async (response) => {
         const json = await response.json();
         setContacts(json);
@@ -24,19 +24,10 @@ export default function Home() {
       .catch((error) => {
         console.log('erro', error);
       });
-  }, []);
+  }, [orderBy]);
 
   function handleToggleOrderBy() {
     setOrder((prevState) => (prevState === 'asc' ? 'desc' : 'asc'));
-
-    fetch(`http://localhost:3001/contacts?orderBy=${order}`)
-      .then(async (response) => {
-        const json = await response.json();
-        setContacts(json);
-      })
-      .catch((error) => {
-        console.log('erro', error);
-      });
   }
 
   console.log(contacts);
