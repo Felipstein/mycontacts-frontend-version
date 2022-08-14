@@ -24,7 +24,7 @@ export default function Home() {
       .catch((error) => {
         console.log('erro', error);
       });
-  }, [orderBy]);
+  }, [order]);
 
   function handleToggleOrderBy() {
     setOrder((prevState) => (prevState === 'asc' ? 'desc' : 'asc'));
