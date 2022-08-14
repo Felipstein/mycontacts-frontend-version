@@ -1,4 +1,7 @@
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+
+import formatPhone from '../../utils/formatPhone';
 
 import {
   Container, InputSearchContainer, Header, ListContainer, Card,
@@ -9,6 +12,32 @@ import edit from '../../assets/images/icons/edit.svg';
 import trash from '../../assets/images/icons/trash.svg';
 
 export default function Home() {
+  const [contacts, setContacts] = useState([]);
+
+  useEffect(() => {
+    fetch('http://localhost:3001/contacts')
+      .then(async (response) => {
+        const json = await response.json();
+        setContacts(json);
+      })
+      .catch((error) => {
+        console.log('erro', error);
+      });
+  }, []);
+
+  function handleOrder() {
+    fetch('http://localhost:3001/contacts?orderBy=desc')
+      .then(async (response) => {
+        const json = await response.json();
+        setContacts(json);
+      })
+      .catch((error) => {
+        console.log('erro', error);
+      });
+  }
+
+  console.log(contacts);
+
   return (
     <Container>
 
@@ -17,47 +46,46 @@ export default function Home() {
       </InputSearchContainer>
 
       <Header>
-        <strong>3 contatos</strong>
+        <strong>
+          {contacts.length}
+          {contacts.length === 1 ? ' contato' : ' contatos'}
+        </strong>
         <Link to="/new">Novo contato</Link>
       </Header>
 
       <ListContainer>
         <header>
-          <button type="button">
+          <button type="button" onClick={handleOrder}>
             <span>Nome</span>
             <img src={arrow} alt="Arrow" />
           </button>
         </header>
 
-        <Card>
-          <div className="info">
-            <div className="contact-name">
-              <strong>Luís Felipe</strong>
-              <small>Instagram</small>
+        {contacts.map((contact) => (
+          <Card key={contact.id}>
+            <div className="info">
+              <div className="contact-name">
+                <strong>{contact.name}</strong>
+                {contact.category_name && (
+                  <small>{contact.category_name}</small>
+                )}
+              </div>
+              <span>{contact.email}</span>
+              <span>{formatPhone(contact.phone)}</span>
             </div>
-            <span>felipstein.oliveira@gmail.com</span>
-            <span>(44) 99876-6289</span>
-          </div>
 
-          <div className="actions">
-            <Link to="/edit/123">
-              <img src={edit} alt="Edit" />
-            </Link>
-            <button type="button">
-              <img src={trash} alt="Delete" />
-            </button>
-          </div>
-        </Card>
+            <div className="actions">
+              <Link to={`/edit/${contact.id}`}>
+                <img src={edit} alt="Edit" />
+              </Link>
+              <button type="button">
+                <img src={trash} alt="Delete" />
+              </button>
+            </div>
+          </Card>
+        ))}
       </ListContainer>
 
     </Container>
   );
 }
-
-fetch('http://localhost:3000')
-  .then((response) => {
-    console.log('response', response);
-  })
-  .catch((error) => {
-    console.log('erro', error);
-  });
