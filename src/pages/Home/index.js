@@ -16,7 +16,7 @@ export default function Home() {
   const [order, setOrder] = useState('asc');
 
   useEffect(() => {
-    fetch(`http://localhost:3001/contacts?orderBy=${orderBy}`)
+    fetch(`http://localhost:3001/contacts?orderBy=${order}`)
       .then(async (response) => {
         const json = await response.json();
         setContacts(json);
