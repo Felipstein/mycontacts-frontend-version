@@ -47,11 +47,8 @@ export default function Home() {
         <Link to="/new">Novo contato</Link>
       </Header>
 
-      <ListHeader>
-        <button
-          type="button"
-          onClick={handleToggleOrderBy}
-        >
+      <ListHeader orderBy={order}>
+        <button type="button" onClick={handleToggleOrderBy}>
           <span>Nome</span>
           <img src={arrow} alt="Arrow" />
         </button>
