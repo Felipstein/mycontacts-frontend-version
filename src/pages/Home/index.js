@@ -54,7 +54,7 @@ export default function Home() {
 
   return (
     <Container>
-      {isLoading && <Loader />}
+      <Loader isLoading={isLoading} />
 
       <InputSearchContainer>
         <input
