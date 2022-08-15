@@ -11,10 +11,13 @@ import arrow from '../../assets/images/icons/arrow.svg';
 import edit from '../../assets/images/icons/edit.svg';
 import trash from '../../assets/images/icons/trash.svg';
 
+import Loader from '../../components/Loader';
+
 export default function Home() {
   const [contacts, setContacts] = useState([]);
   const [order, setOrder] = useState('asc');
   const [searchTerm, setSearchTerm] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
 
   const filteredContacts = useMemo(() => (
     contacts.filter((contact) => (
@@ -23,10 +26,13 @@ export default function Home() {
   ), [contacts, searchTerm]);
 
   useEffect(() => {
+    setIsLoading(true);
+
     fetch(`http://localhost:3001/contacts?orderBy=${order}`)
       .then(async (response) => {
         const json = await response.json();
         setContacts(json);
+        setIsLoading(false);
       })
       .catch((error) => {
         console.log('erro', error);
@@ -43,6 +49,7 @@ export default function Home() {
 
   return (
     <Container>
+      {isLoading && <Loader />}
 
       <InputSearchContainer>
         <input
