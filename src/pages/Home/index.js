@@ -2,6 +2,7 @@ import { useEffect, useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 
 import formatPhone from '../../utils/formatPhone';
+import delay from '../../utils/delay';
 
 import {
   Container, InputSearchContainer, Header, ListHeader, Card,
@@ -30,12 +31,16 @@ export default function Home() {
 
     fetch(`http://localhost:3001/contacts?orderBy=${order}`)
       .then(async (response) => {
+        await delay(500);
+
         const json = await response.json();
         setContacts(json);
-        setIsLoading(false);
       })
       .catch((error) => {
         console.log('erro', error);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   }, [order]);
 
