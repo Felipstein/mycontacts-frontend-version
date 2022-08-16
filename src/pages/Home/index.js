@@ -1,8 +1,9 @@
 import { useEffect, useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 
+import ContactsService from '../../services/ContactsService';
+
 import formatPhone from '../../utils/formatPhone';
-import delay from '../../utils/delay';
 
 import {
   Container, InputSearchContainer, Header, ListHeader, Card,
@@ -31,14 +32,9 @@ export default function Home() {
       try {
         setIsLoading(true);
 
-        const response = await fetch(
-          `http://localhost:3001/contacts?orderBy=${order}`,
-        );
+        const contactsList = await ContactsService.listContacts(order);
 
-        await delay(500);
-
-        const json = await response.json();
-        setContacts(json);
+        setContacts(contactsList);
       } catch (error) {
         console.log('error', error);
       } finally {
