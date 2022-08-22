@@ -35,21 +35,21 @@ export default function Home() {
     ))
   ), [contacts, searchTerm]);
 
-  useEffect(() => {
-    async function loadContacts() {
-      try {
-        setIsLoading(true);
+  async function loadContacts() {
+    try {
+      setIsLoading(true);
 
-        const contactsList = await ContactsService.listContacts(order);
+      const contactsList = await ContactsService.listContacts(order);
 
-        setContacts(contactsList);
-      } catch (error) {
-        setHasError(true);
-      } finally {
-        setIsLoading(false);
-      }
+      setContacts(contactsList);
+    } catch (error) {
+      setHasError(true);
+    } finally {
+      setIsLoading(false);
     }
+  }
 
+  useEffect(() => {
     loadContacts();
   }, [order]);
 
@@ -59,6 +59,10 @@ export default function Home() {
 
   function handleChangeSearchTerm(event) {
     setSearchTerm(event.target.value);
+  }
+
+  function handleTryAgain() {
+    loadContacts();
   }
 
   return (
@@ -91,7 +95,7 @@ export default function Home() {
             <strong>
               Ocorreu um erro ao obter os seus contatos!
             </strong>
-            <Button type="button">
+            <Button type="button" onClick={handleTryAgain}>
               Tentar novamente
             </Button>
           </div>
