@@ -31,9 +31,13 @@ export default function ContactForm({ buttonLabel }) {
 
   useEffect(() => {
     async function loadCategories() {
-      const categoriesList = await CategoriesService.listCategories();
+      try {
+        const categoriesList = await CategoriesService.listCategories();
 
-      setCategories(categoriesList);
+        setCategories(categoriesList);
+      } catch {
+        setError({ field: 'category', message: 'Houve um problema ao carregar a lista de categorias' });
+      }
     }
 
     loadCategories();
@@ -106,10 +110,11 @@ export default function ContactForm({ buttonLabel }) {
         />
       </FormGroup>
 
-      <FormGroup>
+      <FormGroup error={getErrorMessageByFieldName('category')}>
         <Select
           value={categoryId}
           onChange={handleCategoryChange}
+          disabled={getErrorMessageByFieldName('category')}
         >
           <option value="">Sem categoria</option>
 

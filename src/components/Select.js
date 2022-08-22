@@ -19,4 +19,6 @@ export default styled.select`
     border-color: ${({ theme }) => theme.colors.primary.main};
   }
 
+  border-color: ${({ theme, error }) => error && theme.colors.danger.main}
+
 `;
