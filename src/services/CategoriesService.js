@@ -6,7 +6,7 @@ class CategoriesService {
   }
 
   async listCategories() {
-    return this.httpClient.get('/categoriess');
+    return this.httpClient.get('/categories');
   }
 }
 export default new CategoriesService();

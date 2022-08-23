@@ -15,10 +15,14 @@ export default styled.select`
   transition: border-color 0.2s ease-in;
   appearance: none; // Evita o css dos dispositivos mobile (e também desktop) pegar os estilos padrões.
 
+  border-color: ${({ theme, error }) => error && theme.colors.danger.main};
+
   &:focus {
     border-color: ${({ theme }) => theme.colors.primary.main};
   }
 
-  border-color: ${({ theme, error }) => error && theme.colors.danger.main}
+  &[disabled] {
+    background-color: ${({ theme }) => theme.colors.gray[100]};
+  }
 
 `;

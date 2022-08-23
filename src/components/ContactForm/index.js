@@ -19,6 +19,7 @@ export default function ContactForm({ buttonLabel }) {
   const [phone, setPhone] = useState('');
   const [categoryId, setCategoryId] = useState('');
   const [categories, setCategories] = useState([]);
+  const [isLoadingCategories, setIsLoadingCategories] = useState(true);
 
   const {
     errors,
@@ -32,8 +33,11 @@ export default function ContactForm({ buttonLabel }) {
   useEffect(() => {
     async function loadCategories() {
       try {
+        setIsLoadingCategories(true);
+
         const categoriesList = await CategoriesService.listCategories();
 
+        setIsLoadingCategories(false);
         setCategories(categoriesList);
       } catch {
         setError({ field: 'category', message: 'Houve um problema ao carregar a lista de categorias' });
@@ -110,11 +114,11 @@ export default function ContactForm({ buttonLabel }) {
         />
       </FormGroup>
 
-      <FormGroup error={getErrorMessageByFieldName('category')}>
+      <FormGroup isLoading={isLoadingCategories && !getErrorMessageByFieldName('category')} error={getErrorMessageByFieldName('category')}>
         <Select
           value={categoryId}
           onChange={handleCategoryChange}
-          disabled={getErrorMessageByFieldName('category')}
+          disabled={getErrorMessageByFieldName('category') || isLoadingCategories}
         >
           <option value="">Sem categoria</option>
 
