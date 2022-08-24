@@ -12,6 +12,9 @@ export default styled.button`
   color: #fff;
   border-radius: 5px;
   transition: background 0.15s ease-in;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   &:hover {
     background: ${({ theme }) => theme.colors.primary.light}
