@@ -22,6 +22,8 @@ export const Container = styled.div`
   align-items: center;
   justify-content: center;
 
+  ${({ type }) => containerVariants[type] || containerVariants.default}
+
   & + & {
     margin-top: 12px;
   }
