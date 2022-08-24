@@ -8,6 +8,9 @@ export default {
       main: '#5061FC',
       dark: '#3346F0',
     },
+    success: {
+      main: '#51CA73',
+    },
     danger: {
       light: '#F97171',
       main: '#FC5050',
