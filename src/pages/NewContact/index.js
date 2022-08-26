@@ -17,7 +17,14 @@ export default function NewContact() {
 
       console.log(response);
     } catch (error) {
-      alert(error.message);
+      const event = new CustomEvent('addtoast', {
+        detail: {
+          type: 'danger',
+          text: 'Ocorreu um erro ao cadastrar o contato!',
+        },
+      });
+
+      document.dispatchEvent(event);
     }
   }
 
