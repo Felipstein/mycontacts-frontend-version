@@ -6,10 +6,14 @@ import xCircleIcon from '../../../assets/images/icons/x-circle.svg';
 import checkCircleIcon from '../../../assets/images/icons/check-circle.svg';
 
 export default function ToastMessage({ text, type }) {
+  const icons = {
+    danger: [xCircleIcon, 'X'],
+    success: [checkCircleIcon, 'Check'],
+  };
+
   return (
     <Container type={type}>
-      {type === 'danger' && <img src={xCircleIcon} alt="X" />}
-      {type === 'success' && <img src={checkCircleIcon} alt="Check" />}
+      <img src={icons[type][0]} alt={icons[type][1]} />
       <strong>{text}</strong>
     </Container>
   );
