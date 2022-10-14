@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 
 import ContactForm from '../../components/ContactForm';
@@ -10,7 +10,8 @@ import toast from '../../utils/toast';
 
 export default function EditContact() {
   const [isLoading, setIsLoading] = useState(true);
-  const [contact, setContact] = useState(null);
+  const [contactName, setContactName] = useState('');
+  const contactFormRef = useRef(null);
 
   const { id } = useParams();
   const history = useHistory();
@@ -18,11 +19,11 @@ export default function EditContact() {
   useEffect(() => {
     async function loadContact() {
       try {
-        setIsLoading(true);
+        const contact = await ContactsService.getContactById(id);
 
-        const contactData = await ContactsService.getContactById(id);
+        contactFormRef.current.setFieldsValue(contact);
 
-        setContact(contactData);
+        setContactName(contact.name);
         setIsLoading(false);
       } catch {
         history.push('/');
@@ -45,10 +46,11 @@ export default function EditContact() {
       <Loader isLoading={isLoading} />
 
       <PageHeader
-        title={`Editar ${contact?.name}`}
+        title={isLoading ? 'Carregando...' : `Editar ${contactName}`}
       />
 
       <ContactForm
+        ref={contactFormRef}
         buttonLabel="Salvar alterações"
         onSubmit={handleSubmit}
       />
