@@ -3,6 +3,7 @@ import {
 } from 'react';
 import PropTypes from 'prop-types';
 
+import delay from '../../utils/delay';
 import isEmailValid from '../../utils/isEmailValid';
 import formatPhone from '../../utils/formatPhone';
 import useErrors from '../../hooks/useErrors';
@@ -53,7 +54,9 @@ const ContactForm = forwardRef(({ buttonLabel, onSubmit }, ref) => {
       try {
         setIsLoadingCategories(true);
 
+        await delay(2000);
         const categoriesList = await CategoriesService.listCategories();
+        console.log('putz');
 
         setIsLoadingCategories(false);
         setCategories(categoriesList);
