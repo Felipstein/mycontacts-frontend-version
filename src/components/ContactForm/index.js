@@ -15,14 +15,15 @@ import FormGroup from '../FormGroup';
 import Input from '../Input';
 import Select from '../Select';
 import Button from '../Button';
+import useSafeAsyncState from '../../hooks/useSafeAsyncState';
 
 const ContactForm = forwardRef(({ buttonLabel, onSubmit }, ref) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [categoryId, setCategoryId] = useState('');
-  const [categories, setCategories] = useState([]);
-  const [isLoadingCategories, setIsLoadingCategories] = useState(true);
+  const [categories, setCategories] = useSafeAsyncState([]);
+  const [isLoadingCategories, setIsLoadingCategories] = useSafeAsyncState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const {
@@ -54,20 +55,19 @@ const ContactForm = forwardRef(({ buttonLabel, onSubmit }, ref) => {
       try {
         setIsLoadingCategories(true);
 
-        await delay(2000);
+        await delay(750);
         const categoriesList = await CategoriesService.listCategories();
-        console.log('putz');
 
-        setIsLoadingCategories(false);
         setCategories(categoriesList);
       } catch {
         setError({ field: 'category', message: 'Houve um problema ao carregar a lista de categorias' });
+      } finally {
+        setIsLoadingCategories(false);
       }
     }
 
     loadCategories();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [setCategories, setIsLoadingCategories, setError]);
 
   function handleNameChange(event) {
     setName(event.target.value);
