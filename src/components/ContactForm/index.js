@@ -67,7 +67,8 @@ const ContactForm = forwardRef(({ buttonLabel, onSubmit }, ref) => {
     }
 
     loadCategories();
-  }, [setCategories, setIsLoadingCategories, setError]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [setCategories, setIsLoadingCategories]);
 
   function handleNameChange(event) {
     setName(event.target.value);
