@@ -55,6 +55,8 @@ export default function EditContact() {
         type: 'success',
         text: 'Contato editado com sucesso!',
       });
+
+      history.push('/');
     } catch (error) {
       toast({
         type: 'danger',
