@@ -11,13 +11,13 @@ const fadeOut = keyframes`
 `;
 
 const scaleIn = keyframes`
-  from { clip-path: inset(10% 50% 50% 90%); transform: scale(0.6); }
-  to { clip-path: inset(0% 0% 0% 0%); transform: scale(1); }
+  from { clip-path: inset(10% 50% 90% 50% round 24px); transform: scale(0.6); }
+  to { clip-path: inset(0% 0% 0% 0% round 0px); transform: scale(1); }
 `;
 
 const scaleOut = keyframes`
-  from { clip-path: inset(0% 0% 0% 0%); transform: scale(1); }
-  to { clip-path: inset(10% 50% 50% 90%); transform: scale(0.6); }
+  from { clip-path: inset(0% 0% 0% 0% round 0px); transform: scale(1); }
+  to { clip-path: inset(10% 50% 90% 50% round 24px); transform: scale(0.6); }
 `;
 
 export const Overlay = styled.div`
@@ -34,7 +34,7 @@ export const Overlay = styled.div`
   animation: ${fadeIn} 0.3s;
 
   ${({ isLeaving }) => isLeaving && css`
-  animation: ${fadeOut} 0.2s forwards;
+  animation: ${fadeOut} 0.2s;
   `};
 `;
 
@@ -48,7 +48,7 @@ export const Container = styled.div`
   animation: ${scaleIn} 0.3s;
 
   ${({ isLeaving }) => isLeaving && css`
-    animation: ${scaleOut} 0.2s forwards;
+    animation: ${scaleOut} 0.2s;
   `};
 
   > h1 {
