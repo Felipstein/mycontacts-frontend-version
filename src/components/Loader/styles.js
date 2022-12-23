@@ -1,13 +1,13 @@
 import styled, { css, keyframes } from 'styled-components';
 
 const fadeIn = keyframes`
-  to { opacity: 0; }
-  from { opacity: 1; }
+  from { opacity: 0; }
+  to { opacity: 1; }
 `;
 
 const fadeOut = keyframes`
-  to { opacity: 1; }
-  from { opacity: 0; }
+  from { opacity: 1; }
+  to { opacity: 0; }
 `;
 
 export const Overlay = styled.div`
