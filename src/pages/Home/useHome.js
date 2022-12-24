@@ -56,16 +56,11 @@ export default function useHome() {
     loadContacts();
   }
 
-  const handleDeleteContact = useCallback((contact) => {
-    setContactBeingDeleted(contact);
-    setIsDeleteModalVisible(true);
-  }, []);
-
   function handleCloseDeleteContact() {
     setIsDeleteModalVisible(false);
   }
 
-  async function handleConfirmDeleteContact() {
+  const handleConfirmDeleteContact = useCallback(async () => {
     try {
       setIsLoadingDelete(true);
 
@@ -89,7 +84,18 @@ export default function useHome() {
     } finally {
       setIsLoadingDelete(false);
     }
-  }
+  }, [contactBeingDeleted?.id]);
+
+  const handleDeleteContact = useCallback((contact, fastDelete) => {
+    setContactBeingDeleted(contact);
+
+    if (fastDelete) {
+      handleConfirmDeleteContact();
+      return;
+    }
+
+    setIsDeleteModalVisible(true);
+  }, [handleConfirmDeleteContact]);
 
   return {
     isLoading,

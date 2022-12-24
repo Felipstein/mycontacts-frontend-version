@@ -8,6 +8,7 @@ import trash from '../../../../assets/images/icons/trash.svg';
 
 import formatPhone from '../../../../utils/formatPhone';
 
+import useContactsList from './useContactsList';
 import { ListHeader, Card } from './styles';
 
 function ContactsList({
@@ -16,6 +17,8 @@ function ContactsList({
   onToggleOrderBy,
   onDeleteContact,
 }) {
+  const { isShiftPressed } = useContactsList();
+
   return (
     <>
       {filteredContacts.length > 0 && (
@@ -46,7 +49,7 @@ function ContactsList({
             </Link>
             <button
               type="button"
-              onClick={() => onDeleteContact(contact)}
+              onClick={() => onDeleteContact(contact, isShiftPressed)}
             >
               <img src={trash} alt="Delete" />
             </button>
