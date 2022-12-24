@@ -65,8 +65,12 @@ ContactsList.propTypes = {
     category: PropTypes.shape({
       name: PropTypes.string,
     }),
-  })).isRequired,
+  })),
   orderBy: PropTypes.string.isRequired,
   onToggleOrderBy: PropTypes.func.isRequired,
   onDeleteContact: PropTypes.func.isRequired,
+};
+
+ContactsList.defaultProps = {
+  filteredContacts: [],
 };
