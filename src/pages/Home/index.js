@@ -16,7 +16,6 @@ import useHome from './useHome';
 
 export default function Home() {
   const {
-    isPending,
     isLoading,
     isDeleteModalVisible,
     isLoadingDelete,
@@ -61,8 +60,6 @@ export default function Home() {
 
       {hasContacts && (
         <>
-          {isPending && <h1>Carregando...</h1>}
-
           <ContactsList
             filteredContacts={filteredContacts}
             orderBy={order}
