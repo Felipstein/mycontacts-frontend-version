@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
@@ -9,7 +10,7 @@ import formatPhone from '../../../../utils/formatPhone';
 
 import { ListHeader, Card } from './styles';
 
-export default function ContactsList({
+function ContactsList({
   filteredContacts,
   orderBy,
   onToggleOrderBy,
@@ -36,7 +37,7 @@ export default function ContactsList({
               )}
             </div>
             <span>{contact.email}</span>
-            <span>{formatPhone(contact.phone)}</span>
+            <span>{formatPhone(contact.phone ?? '')}</span>
           </div>
 
           <div className="actions">
@@ -74,3 +75,5 @@ ContactsList.propTypes = {
 ContactsList.defaultProps = {
   filteredContacts: [],
 };
+
+export default memo(ContactsList);
