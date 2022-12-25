@@ -2,7 +2,6 @@ import {
   useState, useEffect, useImperativeHandle,
 } from 'react';
 
-import delay from '../../utils/delay';
 import isEmailValid from '../../utils/isEmailValid';
 import formatPhone from '../../utils/formatPhone';
 import useErrors from '../../hooks/useErrors';
@@ -44,23 +43,26 @@ export default function useContactForm(onSubmit, ref) {
   }), []);
 
   useEffect(() => {
+    const controller = new AbortController();
+
     async function loadCategories() {
       try {
         setIsLoadingCategories(true);
 
-        await delay(750);
-        const categoriesList = await CategoriesService.listCategories();
+        const categoriesList = await CategoriesService.listCategories(controller.signal);
 
         setCategories(categoriesList);
-      } catch {
-        setError({ field: 'category', message: 'Houve um problema ao carregar a lista de categorias' });
-      } finally {
+      // eslint-disable-next-line no-empty
+      } catch { } finally {
         setIsLoadingCategories(false);
       }
     }
 
     loadCategories();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+
+    return () => {
+      controller.abort();
+    };
   }, [setCategories, setIsLoadingCategories]);
 
   function handleNameChange(event) {
