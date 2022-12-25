@@ -7,7 +7,7 @@ import checkCircleIcon from '../../../assets/images/icons/check-circle.svg';
 import { Container } from './styles';
 
 function ToastMessage({
-  message, onRemoveMessage, isLeaving, animatedRef,
+  message, onRemoveMessage, isLeaving = false, animatedRef,
 }) {
   const icons = {
     danger: [xCircleIcon, 'X'],
@@ -53,10 +53,6 @@ ToastMessage.propTypes = {
   onRemoveMessage: PropTypes.func.isRequired,
   isLeaving: PropTypes.bool,
   animatedRef: PropTypes.shape().isRequired,
-};
-
-ToastMessage.defaultProps = {
-  isLeaving: false,
 };
 
 export default memo(ToastMessage);
