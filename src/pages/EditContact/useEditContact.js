@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import useIsMounted from '../../hooks/useIsMounted';
 import useSafeAsyncAction from '../../hooks/useSafeAsyncAction';
@@ -13,7 +13,7 @@ export default function useEditContact() {
   const contactFormRef = useRef(null);
 
   const { id } = useParams();
-  const history = useHistory();
+  // const history = useHistory();
   const isMounted = useIsMounted();
   const safeAsyncAction = useSafeAsyncAction();
 
@@ -35,7 +35,7 @@ export default function useEditContact() {
         }
 
         safeAsyncAction(() => {
-          history.push('/');
+          // history.push('/');
           toast({
             type: 'danger',
             text: 'Contato não encontrado',
@@ -49,7 +49,7 @@ export default function useEditContact() {
     return () => {
       controller.abort();
     };
-  }, [id, history, isMounted, safeAsyncAction, setContactName, setIsLoading]);
+  }, [id, isMounted, safeAsyncAction, setContactName, setIsLoading]);
 
   async function handleSubmit(contact) {
     try {
@@ -62,7 +62,7 @@ export default function useEditContact() {
         text: 'Contato editado com sucesso!',
       });
 
-      history.push('/');
+      // history.push('/');
     } catch (error) {
       toast({
         type: 'danger',
